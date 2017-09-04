@@ -10,12 +10,18 @@ socket.on('connect', function () {
   //   from: 111383822,
   //   message : 'hey, you there'
   // })
+  socket.on('welcomeUser', function(data){
+    console.log(data.text);
+  })
+  socket.on('userJoined', function(data){
+    console.log('From ' + data.from + ', ' + 'text: ' + data.text);
+  })
 });
 
 socket.on('disconnect', function(){
   console.log('Disconnected from server.');
 });
-// 
+//
 // socket.on('newEmail', function(email) {
 //   console.log('New Email :', email);
 // });
