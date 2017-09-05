@@ -6,10 +6,7 @@ socket.on('connect', function () {
   //   text: 'Hey, this is Andrew',
   // })
   //
-  // socket.emit('createMessage', {
-  //   from: 111383822,
-  //   message : 'hey, you there'
-  // })
+
   socket.on('welcomeUser', function(data){
     console.log(data.text);
   })
@@ -21,11 +18,22 @@ socket.on('connect', function () {
 socket.on('disconnect', function(){
   console.log('Disconnected from server.');
 });
-//
-// socket.on('newEmail', function(email) {
-//   console.log('New Email :', email);
-// });
 
 socket.on('newMessage', function(message){
   console.log('New message :', message);
+  var li = jQuery('<li></li>');
+  li.text(`${message.from}:${message.text}`);
+
+  jQuery('#messages').append(li);
 });
+
+jQuery('#message-form').on('submit', function(e){
+  e.preventDefault();
+
+  socket.emit('createMessage', {
+    from :'User',
+    text : jQuery('[name = message]').val()
+  }, function() {
+
+  });
+})
